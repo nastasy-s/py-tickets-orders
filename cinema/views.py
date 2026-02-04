@@ -92,7 +92,10 @@ class MovieSessionViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(show_time__date=date)
 
         if movie_id:
-            queryset = queryset.filter(movie_id=int(movie_id))
+            try:
+                queryset = queryset.filter(movie_id=int(movie_id))
+            except ValueError:
+                queryset = queryset.none()
 
         if self.action == "list":
             queryset = queryset.annotate(
