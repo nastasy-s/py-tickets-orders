@@ -1,10 +1,7 @@
 from datetime import datetime
-
 from django.test import TestCase
-
 from rest_framework.test import APIClient
 from rest_framework import status
-
 from cinema.models import (
     Movie,
     Genre,
@@ -84,6 +81,6 @@ class OrderApiTests(TestCase):
         response = self.client.get(f"/api/cinema/movie_sessions/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(
-            response.data[0]["tickets_available"],
+            response.data["results"][0]["tickets_available"],
             self.cinema_hall.capacity - 1,
         )
